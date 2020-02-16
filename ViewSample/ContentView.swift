@@ -8,22 +8,28 @@
 import SwiftUI
 
 private struct LoginView: View {
+
     @State private var username = ""
     @State private var password = ""
-    @State private var isPasswordFiledFocused = false
-
-    @State private var isUsernameFieldCommitted = false
+    @State private var isUsernameFieldFocused = false
+    @State private var isPasswordFieldFocused = false
 
     var body: some View {
         VStack(spacing: 24) {
-            UnderlineTextField("Username", text: $username, defaultColor: .systemGray4, highlightedColor: .systemBlue, onEditingChanged: {
-                self.isPasswordFiledFocused = !(self.isUsernameFieldCommitted || $0)
-                self.isUsernameFieldCommitted = !$0
-            }, onCommit: {
-                self.isUsernameFieldCommitted = true
-            })
-            UnderlineSecureField("Password", text: $password, isFocused: $isPasswordFiledFocused, defaultColor: .systemGray4, highlightedColor: .systemBlue)
+            UnderlineTextField(title: "Username",
+                               text: $username,
+                               isFocused: $isUsernameFieldFocused,
+                               onEditingChanged: { isChanged in
+                                   if isChanged {
+                                       self.isPasswordFieldFocused = !self.password.isEmpty
+                                   }
+                                   return !self.username.isEmpty
+                               })
+            UnderlineSecureField(title: "Password", text: $password, isFocused: $isPasswordFieldFocused) {
+                !self.password.isEmpty
+            }
         }
+        .padding(.horizontal)
     }
 }
 
