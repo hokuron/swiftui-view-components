@@ -59,8 +59,8 @@ private struct CircularShape: Shape {
 
 private struct SliderHandle: Shape {
 
-    var radius: CGFloat
-    var currentAngle: Angle
+    let radius: CGFloat
+    let currentAngle: Angle
 
     func path(in rect: CGRect) -> Path {
         let center = CGPoint(x: rect.width / 2.0 - radius, y: rect.width / 2.0 - radius)
