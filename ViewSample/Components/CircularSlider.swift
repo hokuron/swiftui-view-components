@@ -74,13 +74,14 @@ private struct SliderHandle: Shape {
 
 struct CircularSlider<Value>: View where Value: BinaryFloatingPoint, Value.Stride: BinaryFloatingPoint {
 
-    @Binding var value: Value
-    var range: ClosedRange<Value>
-    var step: Value.Stride = 0.0
-
     var startAngle = Angle(degrees: 45)
     var endAngle = Angle(degrees: 135)
     var clockwise = true
+
+    @Binding var value: Value
+    var range: ClosedRange<Value>
+    var step: Value.Stride = 0.0
+    var onCommit: () -> Void = {}
 
     // https://developer.apple.com/documentation/uikit/uifeedbackgenerator#2555399
     @State private var feedbackGenerator: UISelectionFeedbackGenerator?
@@ -120,6 +121,7 @@ struct CircularSlider<Value>: View where Value: BinaryFloatingPoint, Value.Strid
                         }
                         .onEnded { _ in
                             self.feedbackGenerator = nil
+                            self.onCommit()
                         }
                     )
             }

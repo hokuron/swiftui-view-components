@@ -33,7 +33,7 @@ private struct LoginView: View {
     }
 }
 
-private struct HalfCircleSliderSampleView: View {
+private struct CircularSliderSampleView: View {
 
     @State private var value = 26.0
     @State private var step = 0.0
@@ -69,7 +69,7 @@ struct ContentView: View {
 
     private let components = [
         "UnderLineTextField": AnyView(LoginView()),
-        "HalfCircleSlider": AnyView(HalfCircleSliderSampleView()),
+        "HalfCircleSlider": AnyView(CircularSliderSampleView()),
     ]
 
     var body: some View {
