@@ -72,7 +72,10 @@ struct ContentView: View {
         "HalfCircleSlider": AnyView(CircularSliderSampleView()),
     ]
 
+    @State private var selection: Int = 4
+
     var body: some View {
+        return ListPicker(selection: $selection)
         NavigationView {
             List(components.keys.sorted(), id: \.self) { key in
                 NavigationLink(key, destination: self.components[key]!)
